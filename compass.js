@@ -1,17 +1,21 @@
+const long = 1000
+const short = 500
+const between = 100
+
 const directions = {
-    0: "North",
-    45: "Northeast",
-    90: "East",
-    135: "Southeast",
-    180: "South",
-    225: "Southwest",
-    270: "West",
-    315: "Northwest"
+    0: ["North", [long]],
+    45: ["Northeast", [long, between, short]],
+    90: ["East", [long, between, long]],
+    135: ["Southeast", [long, between, long, between, short]],
+    180: ["South", [long, between, long, between, long]],
+    225: ["Southwest", [long, between, long, between, long, between, short]],
+    270: ["West", [long, between, long, between, long, between, long]],
+    315: ["Northwest", [long, between, long, between, long, between, long, between, short]]
 }
 
 const direction = document.querySelector("#direction")
 let lastDirectionTime = 0
-const directionInterval = 1
+const directionInterval = 2
 
 if (window.DeviceOrientationEvent !== undefined) {
     window.addEventListener('deviceorientation', event => {
@@ -33,12 +37,9 @@ if (window.DeviceOrientationEvent !== undefined) {
                     direction.innerText = compassDir
                 }
             } else {
-                if ([0, 90, 180, 270].includes(compassDir)) {
-                    navigator.vibrate([1000])
-                } else {
-                    navigator.vibrate([500])
-                }
-                direction.innerText = cardinal
+                let name, pattern = cardinal
+                direction.innerText = name
+                navigator.vibrate(pattern)
             }
         }
     })
