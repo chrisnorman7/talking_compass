@@ -38,8 +38,7 @@ if (window.DeviceOrientationEvent !== undefined) {
                     direction.innerText = compassDir
                 }
             } else {
-                let name, pattern = cardinal
-                console.log(cardinal)
+                let [name, pattern] = cardinal
                 direction.innerText = name
                 navigator.vibrate(pattern)
             }
