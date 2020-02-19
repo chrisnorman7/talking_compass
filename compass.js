@@ -15,7 +15,7 @@ const directions = {
 
 const direction = document.querySelector("#direction")
 let lastDirectionTime = 0
-const directionInterval = 2
+const directionInterval = 2000
 
 if (window.DeviceOrientationEvent !== undefined) {
     window.addEventListener('deviceorientation', event => {
