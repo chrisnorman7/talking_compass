@@ -33,6 +33,11 @@ if (window.DeviceOrientationEvent !== undefined) {
                     direction.innerText = compassDir
                 }
             } else {
+                if ([0, 90, 180, 270].includes(compassDir)) {
+                    navigator.vibrate([1000])
+                } else {
+                    navigator.vibrate([500])
+                }
                 direction.innerText = cardinal
             }
         }
