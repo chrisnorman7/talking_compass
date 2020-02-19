@@ -34,6 +34,7 @@ if (window.DeviceOrientationEvent !== undefined) {
             if (cardinal === undefined) {
                 let now = new Date().getTime()
                 if ((now - lastDirectionTime) > directionInterval) {
+                    lastDirectionTime = now
                     direction.innerText = compassDir
                 }
             } else {
