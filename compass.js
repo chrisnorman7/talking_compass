@@ -39,6 +39,7 @@ if (window.DeviceOrientationEvent !== undefined) {
                 }
             } else {
                 let name, pattern = cardinal
+                console.log(cardinal)
                 direction.innerText = name
                 navigator.vibrate(pattern)
             }
