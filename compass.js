@@ -16,7 +16,9 @@ const directions = {
 const startstop = document.querySelector("#startstop")
 const direction = document.querySelector("#direction")
 let lastDirectionTime = 0
+let lastVibrationTime = 0
 const directionInterval = 2000
+const vibrationInterval = 2000
 
 startstop.onclick = () => {
     if (window.DeviceOrientationEvent !== undefined) {
@@ -33,8 +35,8 @@ startstop.onclick = () => {
             } else {
                 compassDir = Math.floor(compassDir)
                 let cardinal = directions[compassDir]
+                let now = new Date().getTime()
                 if (cardinal === undefined) {
-                    let now = new Date().getTime()
                     if ((now - lastDirectionTime) > directionInterval) {
                         lastDirectionTime = now
                         direction.innerText = compassDir
@@ -42,7 +44,10 @@ startstop.onclick = () => {
                 } else {
                     let [name, pattern] = cardinal
                     direction.innerText = name
-                    navigator.vibrate(pattern)
+                    if ((now - lastVibrationTime) > vibrationInterval) {
+                        lastVibrationTime = now
+                        navigator.vibrate(pattern)
+                    }
                 }
             }
         })
