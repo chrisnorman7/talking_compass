@@ -13,37 +13,42 @@ const directions = {
     315: ["Northwest", [long, between, long, between, long, between, long, between, short]]
 }
 
+const startstop = document.querySelector("#startstop")
 const direction = document.querySelector("#direction")
 let lastDirectionTime = 0
 const directionInterval = 2000
 
-if (window.DeviceOrientationEvent !== undefined) {
-    window.addEventListener('deviceorientation', event => {
-        let compassDir = null
-        if(event.alpha === undefined) {
-            // Stupid Apple.
-            compassDir = event.webkitCompassHeading;  
-        } else {
-            compassDir = event.alpha
-        }
-        if (compassDir === null) {
-            direction.innerText = "Unknown direction."
-        } else {
-            compassDir = Math.floor(compassDir)
-            let cardinal = directions[compassDir]
-            if (cardinal === undefined) {
-                let now = new Date().getTime()
-                if ((now - lastDirectionTime) > directionInterval) {
-                    lastDirectionTime = now
-                    direction.innerText = compassDir
-                }
+startstop.onclick = () => {
+    if (window.DeviceOrientationEvent !== undefined) {
+        window.addEventListener('deviceorientation', event => {
+            let compassDir = null
+            if(event.alpha === undefined) {
+                // Stupid Apple.
+                compassDir = event.webkitCompassHeading;  
             } else {
-                let [name, pattern] = cardinal
-                direction.innerText = name
-                navigator.vibrate(pattern)
+                compassDir = event.alpha
             }
-        }
-    })
-} else {
-    direction.innerText = "Compass data is not supported by your browser."
+            if (compassDir === null) {
+                direction.innerText = "Unknown direction."
+            } else {
+                compassDir = Math.floor(compassDir)
+                let cardinal = directions[compassDir]
+                if (cardinal === undefined) {
+                    let now = new Date().getTime()
+                    if ((now - lastDirectionTime) > directionInterval) {
+                        lastDirectionTime = now
+                        direction.innerText = compassDir
+                    }
+                } else {
+                    let [name, pattern] = cardinal
+                    direction.innerText = name
+                    navigator.vibrate(pattern)
+                }
+            }
+        })
+    } else {
+        direction.innerText = "Compass data is not supported by your browser."
+    }
+    navigator.vibrate([1000])
+    startstop.value = "Compass started"
 }
