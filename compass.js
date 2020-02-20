@@ -1,5 +1,5 @@
-const long = 1000
-const short = 500
+const long = 200
+const short = 50
 const between = 100
 
 const directions = {
