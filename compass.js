@@ -36,10 +36,7 @@ let lastVibrationTime = 0
 const directionInterval = 2000
 const vibrationInterval = 2000
 
-window.onload = () => {
-    position.hidden = true
-    startstop.value = startCompassText
-}
+window.onload = () => startstop.value = startCompassText
 
 startstop.onclick = () => {
     if (watchId) {

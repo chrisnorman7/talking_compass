@@ -2,44 +2,58 @@
 <html lang="en">
     <head>
         <title>Talking Compass</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <h1>Compass Heading</h1>
-        <p><input type="button" id="startstop" value=""></p>
-        <p id="direction" aria-live="polite" aria-atomic="false">Move your compass to see the current direction.</p>
+        <div class="w3-container">
+            <p><input type="button" id="startstop" value=""></p>
+            <p id="direction" aria-live="polite" aria-atomic="false">Move your compass to see the current direction.</p>
+        </div>
+        <div class="w3-container">
+            <h2>Saved Coordinates</h2>
+            <p><input type="button" id="save" value="save"></p>
+            <p id="savedCoordinates">Nothing saved yet.</p>
+            <p id="distanceDirections" aria-live="polite" aria-atomic="false"></p>
+        </div>
         <h2>Location</h2>
-        <table id="position">
-            <tr>
-                <td>Latitude</td>
-                <td><span id="latitude">Loading...</span>°</td>
-            </tr>
-            <tr>
-                <td>Longitude</td>
-                <td><span id="longitude">Loading...</span>°</td>
-            </tr>
-            <tr>
-                <td>Altitude</td>
-                <td><span id="altitude">Loading...</span> meters</td>
-            </tr>
-            <tr>
-                <td>Heading</td>
-                <td><span id="heading">Loading...</span>°</td>
-            </tr>
-            <tr>
-                <td>Speed</td>
-                <td><span id="speed">Loading...</span> m/s</td>
-            </tr>
-            <tr>
-                <td>Accuracy</td>
-                <td>To within <span id="accuracy">Loading...</span> meters</td>
-            </tr>
-        </table>
-        <h2>Saved Coordinates</h2>
-        <p><input type="button" id="save" value="save"></p>
-        <p id="savedCoordinates">Nothing saved yet.</p>
-        <p id="distanceDirections" aria-live="polite" aria-atomic="false"></p>
-        <h2>Notice</h2>
-        <p>Provided directions are only ever approximate. See the "accuracy" column.</p>
-        <script src="compass.js?16"></script>
+        <div class="w3-container">
+            <details>
+                <summary>GPS information</summary>
+                <table id="position">
+                    <tr>
+                        <td>Latitude</td>
+                        <td><span id="latitude">Loading...</span>°</td>
+                    </tr>
+                    <tr>
+                        <td>Longitude</td>
+                        <td><span id="longitude">Loading...</span>°</td>
+                    </tr>
+                    <tr>
+                        <td>Altitude</td>
+                        <td><span id="altitude">Loading...</span> meters</td>
+                    </tr>
+                    <tr>
+                        <td>Heading</td>
+                        <td><span id="heading">Loading...</span>°</td>
+                    </tr>
+                    <tr>
+                        <td>Speed</td>
+                        <td><span id="speed">Loading...</span> m/s</td>
+                    </tr>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td>To within <span id="accuracy">Loading...</span> meters</td>
+                    </tr>
+                </table>
+            </details>
+        </div>
+        <div class="w3-container">
+            <h2>Notice</h2>
+            <p>Provided directions are only ever approximate. See the "accuracy" column.</p>
+        </div>
+        <script src="compass.js?17"></script>
     </body>
 </html>
