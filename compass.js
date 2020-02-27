@@ -54,7 +54,7 @@ startstop.onclick = () => {
         startstop.value = startCompassText
     } else {
         beepTimer = setInterval(() => {
-            if (distance === null || watchId === null) {
+            if (distance === null || watchId === null || document[hidden]) {
                 return
             }
             const now = new Date().getTime()
@@ -198,4 +198,14 @@ function distanceToText(m) {
     } else {
         return `${m}m`
     }
+}
+
+// Set the name of the hidden property and the change event for visibility
+let hidden = null
+if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+    hidden = "hidden"
+} else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden"
+} else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden"
 }
