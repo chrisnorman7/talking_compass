@@ -46,7 +46,7 @@ const vibrationInterval = 4000
 window.onload = () => {
     startstop.value = startCompassText
     setInterval(() => {
-        if (distance === null) {
+        if (distance === null || watchId === null) {
             return
         }
         const now = new Date().getTime()
