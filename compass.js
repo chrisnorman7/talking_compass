@@ -33,14 +33,8 @@ const position = document.querySelector("#position")
 
 let latitude = null
 let savedLatitude = null
-if ("latitude" in Cookies.get()) {
-    savedLatitude = JSON.parse(Cookies.get("latitude"))
-}
 let longitude = null
 let savedLongitude = null
-if ("longitude" in Cookies.get()) {
-    savedLongitude = JSON.parse(Cookies.get("longitude"))
-}
 let distance = null
 
 const gpsNames = ["latitude", "longitude", "altitude", "heading", "speed", "accuracy"]
@@ -56,6 +50,15 @@ window.onload = () => {
     startstop.value = startCompassText
     if ("audio" in Cookies.get()) {
         audioToggle.checked = JSON.parse(Cookies.get("audio"))
+    }
+    if ("latitude" in Cookies.get()) {
+        savedLatitude = JSON.parse(Cookies.get("latitude"))
+    }
+    if ("longitude" in Cookies.get()) {
+        savedLongitude = JSON.parse(Cookies.get("longitude"))
+    }
+    if (savedLatitude && savedLongitude) {
+        setSavedCoordinates()
     }
 }
 
@@ -142,6 +145,10 @@ startstop.onclick = () => {
     }
 }
 
+function setSavedCoordinates() {
+    savedCoordinates.innerText = `${savedLatitude}° latitude, ${savedLongitude}° longitude.`
+}
+
 save.onclick = () => {
     if (latitude === null && longitude === null) {
         alert("You must first start the compass.")
@@ -154,7 +161,7 @@ save.onclick = () => {
             latitude, longitude,
             savedLatitude, savedLongitude
         )
-        savedCoordinates.innerText = `${savedLatitude}° latitude, ${savedLongitude}° longitude.`
+        setSavedCoordinates()
         updateDistanceDirections()
     }
 }
