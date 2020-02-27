@@ -32,9 +32,15 @@ const direction = document.querySelector("#direction")
 const position = document.querySelector("#position")
 
 let latitude = null
-let savedLatitude = Cookies.get("latitude") || null
+let savedLatitude = null
+if ("latitude" in Cookies.get()) {
+    savedLatitude = JSON.parse(Cookies.get("latitude"))
+}
 let longitude = null
-let savedLongitude = Cookies.get("longitude") || null
+let savedLongitude = null
+if ("longitude" in Cookies.get()) {
+    savedLongitude = JSON.parse(Cookies.get("longitude"))
+}
 let distance = null
 
 const gpsNames = ["latitude", "longitude", "altitude", "heading", "speed", "accuracy"]
@@ -48,7 +54,9 @@ const vibrationInterval = 4000
 
 window.onload = () => {
     startstop.value = startCompassText
-    audioToggle.checked = Cookies.get("audio") || audioToggle.checked
+    if ("audio" in Cookies.get()) {
+        audioToggle.checked = JSON.parse(Cookies.get("audio"))
+    }
 }
 
 startstop.onclick = () => {
@@ -217,4 +225,4 @@ if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and 
     hidden = "webkitHidden"
 }
 
-audioToggle.onclick = () => Cookies.set("audio", audioToggle.checked)
+audioToggle.onclick = () => Cookies.set("audio", JSON.stringify(audioToggle.checked))
