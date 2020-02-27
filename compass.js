@@ -140,6 +140,8 @@ save.onclick = () => {
     } else {
         savedLatitude = latitude
         savedLongitude = longitude
+        Cookies.set("latitude", savedLatitude)
+        Cookies.set("longitude", savedLongitude)
         distance = distanceBetween(
             latitude, longitude,
             savedLatitude, savedLongitude
@@ -214,3 +216,5 @@ if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and 
 } else if (typeof document.webkitHidden !== "undefined") {
     hidden = "webkitHidden"
 }
+
+audioToggle.onclick = () => Cookies.set("audio", audioToggle.checked)
