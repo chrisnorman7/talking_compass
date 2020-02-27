@@ -1,6 +1,6 @@
-const long = 200
-const short = 50
-const between = 100
+const long = 100
+const short = 25
+const between = 50
 const startCompassText = "Start Compass"
 
 const directions = {
