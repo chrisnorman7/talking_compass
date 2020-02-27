@@ -34,7 +34,7 @@ let watchId = null
 let lastDirectionTime = 0
 let lastVibrationTime = 0
 const directionInterval = 2000
-const vibrationInterval = 2000
+const vibrationInterval = 4000
 
 window.onload = () => startstop.value = startCompassText
 
@@ -60,29 +60,29 @@ startstop.onclick = () => {
                         }
                         document.querySelector(`#${name}`).innerText = text
                     }
-                    let compassDir = obj.coords.heading
-                    if (compassDir === null) {
-                        direction.innerText = "Unknown direction."
-                    } else {
-                        compassDir = Math.floor(compassDir)
-                        let cardinal = directions[compassDir]
-                        let now = new Date().getTime()
-                        if (cardinal === undefined) {
-                            if ((now - lastDirectionTime) > directionInterval) {
-                                lastDirectionTime = now
-                                direction.innerText = compassDir
-                            }
+                    let now = new Date().getTime()
+                    if ((now - lastDirectionTime) > directionInterval) {
+                        lastDirectionTime = now
+                        let compassDir = obj.coords.heading
+                        if (compassDir === null) {
+                            direction.innerText = "Unknown direction."
                         } else {
-                            let [name, pattern] = cardinal
-                            direction.innerText = name
-                            if ((now - lastVibrationTime) > vibrationInterval) {
-                                lastVibrationTime = now
-                                navigator.vibrate(pattern)
+                            compassDir = Math.floor(compassDir)
+                            let cardinal = directions[compassDir]
+                            if (cardinal === undefined) {
+                                direction.innerText = compassDir
+                            } else {
+                                let [name, pattern] = cardinal
+                                direction.innerText = name
+                                if ((now - lastVibrationTime) > vibrationInterval) {
+                                    lastVibrationTime = now
+                                    navigator.vibrate(pattern)
+                                }
                             }
                         }
-                    }
-                    if (savedLatitude && savedLongitude) {
-                        updateDistanceDirections()
+                        if (savedLatitude && savedLongitude) {
+                            updateDistanceDirections()
+                        }
                     }
                 },
                 error => {
