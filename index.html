@@ -55,12 +55,14 @@
             </details>
         </div>
         <div class="w3-container">
-            <form id="loadCustomCoordinates">
-                <h2>Load coordinates</h2>
-                <p><label>Latitude: <input type="text" id="customLatitude"></label></p>
-                <p><label>Longitude: <input type="text" id="customLongitude"></label></p>
-                <p><input type="submit" value="Load"></p>
-            </form>
+            <details>
+                <summary>Load coordinates</summary>
+                <form id="loadCustomCoordinates">
+                    <p><label>Latitude: <input type="text" id="customLatitude"></label></p>
+                    <p><label>Longitude: <input type="text" id="customLongitude"></label></p>
+                    <p><input type="submit" value="Load"></p>
+                </form>
+            </details>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
         <script src="compass.js?49"></script>
