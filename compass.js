@@ -18,6 +18,7 @@ let audioContext = null
 let oscillator = null
 const baseFrequency = 200
 const distanceTransform = 10
+const maxDistance = 150
 
 const startstop = document.querySelector("#startstop")
 const save = document.querySelector("#save")
@@ -82,6 +83,23 @@ startstop.onclick = () => {
                         document.querySelector(`#${name}`).innerText = text
                     }
                     let now = new Date().getTime()
+                    let distance = null
+                    if (savedLatitude !== null && savedLongitude !== null) {
+                        distance = distanceBetween(
+                            latitude, longitude,
+                            savedLatitude, savedLongitude
+                        )
+                        if (distance <= maxDistance) {
+                            if (audioToggle.checked) {
+                                audioContext.resume()
+                            }
+                            oscillator.frequency.value = baseFrequency + (distance * distanceTransform)
+                        } else {
+                            audioContext.suspend()
+                        }
+                    } else {
+                        distance = undefined
+                    }
                     if ((now - lastDirectionTime) > directionInterval) {
                         lastDirectionTime = now
                         let compassDir = obj.coords.heading
@@ -102,7 +120,7 @@ startstop.onclick = () => {
                             }
                         }
                         if (savedLatitude && savedLongitude) {
-                            updateDistanceDirections()
+                            updateDistanceDirections(distance)
                         }
                     }
                 },
@@ -164,12 +182,13 @@ function distanceBetween(lat1, lon1, lat2, lon2) {
     ) * R
 }
 
-function updateDistanceDirections() {
-    let distance = distanceBetween(
-        latitude, longitude,
-        savedLatitude, savedLongitude
-    )
-    oscillator.frequency.value = baseFrequency + (distance * distanceTransform)
+function updateDistanceDirections(distance) {
+    if (distance === undefined) {
+        distance = distanceBetween(
+            latitude, longitude,
+            savedLatitude, savedLongitude
+        )
+    }
     distance = distanceToText(distance)
     let degrees = Math.floor(bearing(
         latitude, longitude,
