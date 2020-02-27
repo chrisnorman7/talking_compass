@@ -94,7 +94,7 @@ startstop.onclick = () => {
                 },
                 {enableHighAccuracy: true}
             )
-            navigator.vibrate([1000])
+            navigator.vibrate([10])
             startstop.value = "Compass started"
         } else {
             direction.innerText = "Location information is not supported by your browser."
