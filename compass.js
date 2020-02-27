@@ -144,15 +144,15 @@ function distanceBetween(lat1, lon1, lat2, lon2) {
 }
 
 function updateDistanceDirections() {
-    let distance = Math.floor(distanceBetween(
-        latitude, longitude,
-        savedLatitude, savedLongitude
-    ))
-    distance = distanceToText(distance)
-    let degrees = bearing(
+    let distance = distanceBetween(
         latitude, longitude,
         savedLatitude, savedLongitude
     )
+    distance = distanceToText(distance)
+    let degrees = Math.floor(bearing(
+        latitude, longitude,
+        savedLatitude, savedLongitude
+    ))
     distanceDirections.innerText = `${distance} at ${degrees}°.`
 }
 
