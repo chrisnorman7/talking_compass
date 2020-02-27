@@ -157,6 +157,9 @@ function updateDistanceDirections() {
 }
 
 function distanceToText(m) {
+    if (typeof(m) == "number") {
+        m = m.toFixed(2)
+    }
     if (m > 1000) {
         return `${m / 1000}km`
     } else {
