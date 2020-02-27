@@ -5,8 +5,41 @@
     </head>
     <body>
         <h1>Compass Heading</h1>
-        <p><input type="button" id="startstop" value="Start Compass"></p>
+        <p><input type="button" id="startstop" value=""></p>
         <p id="direction" aria-live="polite" aria-atomic="false">Move your compass to see the current direction.</p>
-    <script src="compass.js?15"></script>
+        <h2>Location</h2>
+        <table id="position">
+            <tr>
+                <td>Latitude</td>
+                <td><span id="latitude">Loading...</span>°</td>
+            </tr>
+            <tr>
+                <td>Longitude</td>
+                <td><span id="longitude">Loading...</span>°</td>
+            </tr>
+            <tr>
+                <td>Altitude</td>
+                <td><span id="altitude">Loading...</span> meters</td>
+            </tr>
+            <tr>
+                <td>Heading</td>
+                <td><span id="heading">Loading...</span>°</td>
+            </tr>
+            <tr>
+                <td>Speed</td>
+                <td><span id="speed">Loading...</span> m/s</td>
+            </tr>
+            <tr>
+                <td>Accuracy</td>
+                <td>To within <span id="accuracy">Loading...</span> meters</td>
+            </tr>
+        </table>
+        <h2>Saved Coordinates</h2>
+        <p><input type="button" id="save" value="save"></p>
+        <p id="savedCoordinates">Nothing saved yet.</p>
+        <p id="distanceDirections"></p>
+        <h2>Notice</h2>
+        <p>Provided directions are only ever approximate. See the "accuracy" column.</p>
+        <script src="compass.js?16"></script>
     </body>
 </html>
