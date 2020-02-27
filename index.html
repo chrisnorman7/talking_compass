@@ -14,7 +14,7 @@
         </div>
         <div class="w3-container">
             <h2>Saved Coordinates</h2>
-            <p><input type="button" id="save" value="save"></p>
+            <p><input type="button" id="save" value="save Current Coordinates"></p>
             <p id="distanceDirections" aria-live="polite" aria-atomic="false"></p>
             <p id="savedCoordinates">Nothing saved yet.</p>
             <p><label>Toggle Audio <input type="checkbox" id="audioToggle"></label></p>
@@ -51,12 +51,14 @@
             </details>
         </div>
         <div class="w3-container">
-            <h2>Load coordinates</h2>
-            <p><label>Latitude: <input type="text" id="customLatitude"></label></p>
-            <p><label>Longitude: <input type="text" id="customLongitude"></label></p>
-            <p><input type="button" id="loadCustomCoordinates" value="Load"></p>
+            <form id="loadCustomCoordinates">
+                <h2>Load coordinates</h2>
+                <p><label>Latitude: <input type="text" id="customLatitude"></label></p>
+                <p><label>Longitude: <input type="text" id="customLongitude"></label></p>
+                <p><input type="submit" value="Load"></p>
+            </form>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
-        <script src="compass.js?46"></script>
+        <script src="compass.js?47"></script>
     </body>
 </html>

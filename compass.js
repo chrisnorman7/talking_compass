@@ -154,25 +154,23 @@ function setSavedCoordinates() {
 }
 
 function saveCoordinates(lat, lon) {
-    savedLatitude = lat
-    savedLongitude = lon
-    Cookies.set("latitude", savedLatitude)
-    Cookies.set("longitude", savedLongitude)
-    distance = distanceBetween(
-        latitude, longitude,
-        savedLatitude, savedLongitude
-    )
-    setSavedCoordinates()
-    updateDistanceDirections()
-}
-
-save.onclick = () => {
     if (latitude === null && longitude === null) {
         alert("You must first start the compass.")
     } else {
-        saveCoordinates(latitude, longitude)
+        savedLatitude = lat
+        savedLongitude = lon
+        Cookies.set("latitude", savedLatitude)
+        Cookies.set("longitude", savedLongitude)
+        distance = distanceBetween(
+            latitude, longitude,
+            savedLatitude, savedLongitude
+        )
+        setSavedCoordinates()
+        updateDistanceDirections()
     }
 }
+
+save.onclick = () => saveCoordinates(latitude, longitude)
 
 function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180)
@@ -242,7 +240,8 @@ if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and 
 
 audioToggle.onclick = () => Cookies.set("audio", JSON.stringify(audioToggle.checked))
 
-loadCustomCoordinates.onclick = () => {
+loadCustomCoordinates.onsubmit = e => {
+    e.preventDefault()
     let lat = customLatitude.value
     let lon = customLongitude.value
     lat = Number(lat)
@@ -254,8 +253,6 @@ loadCustomCoordinates.onclick = () => {
         alert("Invalid longitude.")
         customLongitude.focus()
     } else {
-        latitude = lat
-        longitude = lon
-        save.click()
+        saveCoordinates(lat, lon)
     }
 }
