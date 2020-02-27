@@ -14,8 +14,14 @@ const directions = {
     315: ["Northwest", [long, between, long, between, long, between, long, between, short]]
 }
 
+let audioContext = null
+let oscillator = null
+const baseFrequency = 200
+const distanceTransform = 10
+
 const startstop = document.querySelector("#startstop")
 const save = document.querySelector("#save")
+const audioToggle = document.querySelector("#audioToggle")
 const savedCoordinates = document.querySelector("#savedCoordinates")
 const distanceDirections = document.querySelector("#distanceDirections")
 
@@ -39,6 +45,21 @@ const vibrationInterval = 4000
 window.onload = () => startstop.value = startCompassText
 
 startstop.onclick = () => {
+    if (!audioContext) {
+        audioContext = new AudioContext()
+    }
+    if (oscillator) {
+        oscillator.disconnect()
+        oscillator = null
+    } else {
+        oscillator = audioContext.createOscillator()
+        oscillator.connect(audioContext.destination)
+        oscillator.start()
+        oscillator.frequency.value = baseFrequency
+        if (!audioToggle.checked) {
+            audioContext.suspend()
+        }
+    }
     if (watchId) {
         navigator.geolocation.clearWatch(watchId)
         watchId = null
@@ -148,6 +169,7 @@ function updateDistanceDirections() {
         latitude, longitude,
         savedLatitude, savedLongitude
     )
+    oscillator.frequency.value = baseFrequency + (distance * distanceTransform)
     distance = distanceToText(distance)
     let degrees = Math.floor(bearing(
         latitude, longitude,
@@ -164,5 +186,15 @@ function distanceToText(m) {
         return `${m / 1000}km`
     } else {
         return `${m}m`
+    }
+}
+
+audioToggle.onclick = () => {
+    if (!watchId) {
+        alert("You must start the compass before audio will work.")
+    } else if (audioToggle.checked) {
+        audioContext.resume()
+    } else {
+        audioContext.suspend()
     }
 }

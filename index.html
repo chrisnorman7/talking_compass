@@ -15,8 +15,9 @@
         <div class="w3-container">
             <h2>Saved Coordinates</h2>
             <p><input type="button" id="save" value="save"></p>
-            <p id="savedCoordinates">Nothing saved yet.</p>
             <p id="distanceDirections" aria-live="polite" aria-atomic="false"></p>
+            <p id="savedCoordinates">Nothing saved yet.</p>
+            <p><label>Toggle Audio <input type="checkbox" id="audioToggle"></label></p>
         </div>
         <div class="w3-container">
             <details>
@@ -53,6 +54,7 @@
             <h2>Notice</h2>
             <p>Provided directions are only ever approximate. See the "accuracy" column.</p>
         </div>
-        <script src="compass.js?24"></script>
+        <script src="http://cwilso.github.com/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+        <script src="compass.js?25"></script>
     </body>
 </html>
