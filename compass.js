@@ -106,6 +106,7 @@ startstop.onclick = () => {
                         }
                         document.querySelector(`#${name}`).innerText = text
                     }
+                    document.querySelector("#url").innerText = `${location.protocol}//${location.host}${location.pathname}?lat=${latitude}&lon=${longitude}`
                     const now = new Date().getTime()
                     if (savedLatitude !== null && savedLongitude !== null) {
                         distance = distanceBetween(
