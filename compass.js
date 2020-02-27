@@ -52,7 +52,7 @@ startstop.onclick = () => {
                     longitude = obj.coords.longitude
                     for (let name of gpsNames) {
                         let text = obj.coords[name]
-                        if (name == "altitude" || name == "accuracy") {
+                        if (["altitude", "speed", "accuracy"].includes(name)) {
                             text = distanceToText(text)
                         }
                         if (text === null) {
