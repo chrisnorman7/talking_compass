@@ -153,20 +153,24 @@ function setSavedCoordinates() {
     savedCoordinates.innerText = `${savedLatitude}° latitude, ${savedLongitude}° longitude.`
 }
 
+function saveCoordinates(lat, lon) {
+    savedLatitude = lat
+    savedLongitude = lon
+    Cookies.set("latitude", savedLatitude)
+    Cookies.set("longitude", savedLongitude)
+    distance = distanceBetween(
+        latitude, longitude,
+        savedLatitude, savedLongitude
+    )
+    setSavedCoordinates()
+    updateDistanceDirections()
+}
+
 save.onclick = () => {
     if (latitude === null && longitude === null) {
         alert("You must first start the compass.")
     } else {
-        savedLatitude = latitude
-        savedLongitude = longitude
-        Cookies.set("latitude", savedLatitude)
-        Cookies.set("longitude", savedLongitude)
-        distance = distanceBetween(
-            latitude, longitude,
-            savedLatitude, savedLongitude
-        )
-        setSavedCoordinates()
-        updateDistanceDirections()
+        saveCoordinates(latitude, longitude)
     }
 }
 
