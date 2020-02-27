@@ -18,10 +18,9 @@
             <p id="savedCoordinates">Nothing saved yet.</p>
             <p id="distanceDirections" aria-live="polite" aria-atomic="false"></p>
         </div>
-        <h2>Location</h2>
         <div class="w3-container">
             <details>
-                <summary>GPS information</summary>
+                <summary>Details location information</summary>
                 <table id="position">
                     <tr>
                         <td>Latitude</td>
@@ -33,7 +32,7 @@
                     </tr>
                     <tr>
                         <td>Altitude</td>
-                        <td><span id="altitude">Loading...</span> meters</td>
+                        <td id="altitude">Loading...</td>
                     </tr>
                     <tr>
                         <td>Heading</td>
@@ -45,7 +44,7 @@
                     </tr>
                     <tr>
                         <td>Accuracy</td>
-                        <td>To within <span id="accuracy">Loading...</span> meters</td>
+                        <td>To within <span id="accuracy">Loading...</span></td>
                     </tr>
                 </table>
             </details>
@@ -54,6 +53,6 @@
             <h2>Notice</h2>
             <p>Provided directions are only ever approximate. See the "accuracy" column.</p>
         </div>
-        <script src="compass.js?17"></script>
+        <script src="compass.js?18"></script>
     </body>
 </html>

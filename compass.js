@@ -52,6 +52,9 @@ startstop.onclick = () => {
                     longitude = obj.coords.longitude
                     for (let name of gpsNames) {
                         let text = obj.coords[name]
+                        if (name == "altitude" || name == "accuracy") {
+                            text = distanceToText(text)
+                        }
                         if (text === null) {
                             text = "Unknown"
                         }
@@ -145,9 +148,18 @@ function updateDistanceDirections() {
         latitude, longitude,
         savedLatitude, savedLongitude
     )
+    distance = distanceToText(distance)
     let degrees = bearing(
         latitude, longitude,
         savedLatitude, savedLongitude
     )
-    distanceDirections.innerText = `${distance} meters at ${degrees}°.`
+    distanceDirections.innerText = `${distance} at ${degrees}°.`
+}
+
+function distanceToText(m) {
+    if (m > 1000) {
+        return `${m / 1000}km`
+    } else {
+        return `${m}m`
+    }
 }
