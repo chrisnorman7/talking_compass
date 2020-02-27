@@ -1,3 +1,5 @@
+/* global Cookies */
+
 const long = 100
 const short = 25
 const between = 50
@@ -30,9 +32,9 @@ const direction = document.querySelector("#direction")
 const position = document.querySelector("#position")
 
 let latitude = null
-let savedLatitude = null
+let savedLatitude = Cookies.get("latitude") || null
 let longitude = null
-let savedLongitude = null
+let savedLongitude = Cookies.get("longitude") || null
 let distance = null
 
 const gpsNames = ["latitude", "longitude", "altitude", "heading", "speed", "accuracy"]
@@ -44,7 +46,10 @@ let lastVibrationTime = 0
 const directionInterval = 2000
 const vibrationInterval = 4000
 
-window.onload = () => startstop.value = startCompassText
+window.onload = () => {
+    startstop.value = startCompassText
+    audioToggle.checked = Cookies.get("audio") || audioToggle.checked
+}
 
 startstop.onclick = () => {
     if (watchId) {
