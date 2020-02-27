@@ -64,6 +64,13 @@ window.onload = () => {
     if (savedLatitude && savedLongitude) {
         setSavedCoordinates()
     }
+    let vars = getUrlVars()
+    if ("lat" in vars) {
+        customLatitude.value = vars["lat"]
+    }
+    if ("lon" in vars) {
+        customLongitude.value = vars["lon"]
+    }
 }
 
 startstop.onclick = () => {
@@ -255,4 +262,12 @@ loadCustomCoordinates.onsubmit = e => {
     } else {
         saveCoordinates(lat, lon)
     }
+}
+
+function getUrlVars() {
+    let vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+        vars[key] = value
+    })
+    return vars
 }
