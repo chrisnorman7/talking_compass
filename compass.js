@@ -32,7 +32,6 @@ let latitude = null
 let savedLatitude = null
 let longitude = null
 let savedLongitude = null
-let now = 0
 let distance = null
 
 const gpsNames = ["latitude", "longitude", "altitude", "heading", "speed", "accuracy"]
@@ -50,8 +49,9 @@ window.onload = () => {
         if (distance === null) {
             return
         }
+        const now = new Date().getTime()
         if ((now - lastBeepTime) >= (distance * distanceMultiplier) && audioToggle.checked) {
-            lastBeepTime = Number(now.toString())
+            lastBeepTime = now
             beep.play()
         }
     }, beepInterval)
@@ -79,7 +79,7 @@ startstop.onclick = () => {
                         }
                         document.querySelector(`#${name}`).innerText = text
                     }
-                    now = new Date().getTime()
+                    const now = new Date().getTime()
                     if (savedLatitude !== null && savedLongitude !== null) {
                         distance = distanceBetween(
                             latitude, longitude,
