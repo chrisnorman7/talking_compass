@@ -43,7 +43,10 @@ let lastVibrationTime = 0
 const directionInterval = 2000
 const vibrationInterval = 4000
 
-window.onload = () => startstop.value = startCompassText
+window.onload = () => {
+    window.AudioContext = (window.AudioContext || window.webkitAudioContext)
+    startstop.value = startCompassText
+}
 
 startstop.onclick = () => {
     if (!audioContext) {
