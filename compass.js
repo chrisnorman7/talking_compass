@@ -144,10 +144,10 @@ function distanceBetween(lat1, lon1, lat2, lon2) {
 }
 
 function updateDistanceDirections() {
-    let distance = distanceBetween(
+    let distance = Math.floor(distanceBetween(
         latitude, longitude,
         savedLatitude, savedLongitude
-    )
+    ))
     distance = distanceToText(distance)
     let degrees = bearing(
         latitude, longitude,
