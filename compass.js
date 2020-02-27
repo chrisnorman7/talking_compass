@@ -22,6 +22,10 @@ let lastBeepTime = 0
 const distanceMultiplier = 100
 const beepInterval = 50
 
+const customLatitude = document.querySelector("#customLatitude")
+const customLongitude = document.querySelector("#customLongitude")
+const loadCustomCoordinates = document.querySelector("#loadCustomCoordinates")
+
 const startstop = document.querySelector("#startstop")
 const save = document.querySelector("#save")
 const audioToggle = document.querySelector("#audioToggle")
@@ -233,3 +237,21 @@ if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and 
 }
 
 audioToggle.onclick = () => Cookies.set("audio", JSON.stringify(audioToggle.checked))
+
+loadCustomCoordinates.onclick = () => {
+    let lat = customLatitude.value
+    let lon = customLongitude.value
+    lat = Number(lat)
+    lon = Number(lon)
+    if (isNaN(lat)) {
+        alert("Invalid latitude.")
+        customLatitude.focus()
+    } else if (isNaN(lon)) {
+        alert("Invalid longitude.")
+        customLongitude.focus()
+    } else {
+        latitude = lat
+        longitude = lon
+        save.click()
+    }
+}
