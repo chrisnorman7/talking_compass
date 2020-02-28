@@ -104,6 +104,8 @@ startstop.onclick = () => {
                         let text = obj.coords[name]
                         if (["altitude", "speed", "accuracy"].includes(name)) {
                             text = distanceToText(text)
+                        } else if (name == "heading") {
+                            text = text.toFixed(2)
                         }
                         if (text === null) {
                             text = "Unknown"
