@@ -234,7 +234,7 @@ function distanceToText(m) {
         m = m.toFixed(2)
     }
     if (m > 1000) {
-        return `${m / 1000}km`
+        return `${(m / 1000).toFixed(2)}km`
     } else {
         return `${m}m`
     }
