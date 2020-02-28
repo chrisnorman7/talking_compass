@@ -22,6 +22,7 @@ let lastBeepTime = 0
 const distanceMultiplier = 100
 const beepInterval = 50
 
+const url = document.querySelector("#url")
 const customLatitude = document.querySelector("#customLatitude")
 const customLongitude = document.querySelector("#customLongitude")
 const loadCustomCoordinates = document.querySelector("#loadCustomCoordinates")
@@ -109,7 +110,7 @@ startstop.onclick = () => {
                         }
                         document.querySelector(`#${name}`).innerText = text
                     }
-                    document.querySelector("#url").value = `${location.protocol}//${location.host}${location.pathname}?lat=${latitude}&lon=${longitude}`
+                    url.value = `${location.protocol}//${location.host}${location.pathname}?lat=${latitude}&lon=${longitude}`
                     const now = new Date().getTime()
                     if (savedLatitude !== null && savedLongitude !== null) {
                         distance = distanceBetween(
@@ -274,4 +275,9 @@ function getUrlVars() {
         vars[key] = value
     })
     return vars
+}
+
+document.querySelector("#copyUrl").onclick = () => {
+    url.select()
+    document.execCommand("copy")
 }
