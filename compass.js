@@ -66,10 +66,13 @@ window.onload = () => {
     }
     let vars = getUrlVars()
     if ("lat" in vars) {
-        customLatitude.value = vars["lat"]
+        savedLatitude = Number(vars["lat"])
     }
     if ("lon" in vars) {
-        customLongitude.value = vars["lon"]
+        savedLongitude = Number(vars["lon"])
+    }
+    if (savedLatitude && savedLongitude) {
+        setSavedCoordinates()
     }
 }
 
@@ -106,7 +109,7 @@ startstop.onclick = () => {
                         }
                         document.querySelector(`#${name}`).innerText = text
                     }
-                    document.querySelector("#url").innerText = `${location.protocol}//${location.host}${location.pathname}?lat=${latitude}&lon=${longitude}`
+                    document.querySelector("#url").value = `${location.protocol}//${location.host}${location.pathname}?lat=${latitude}&lon=${longitude}`
                     const now = new Date().getTime()
                     if (savedLatitude !== null && savedLongitude !== null) {
                         distance = distanceBetween(
