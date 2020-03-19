@@ -40,6 +40,7 @@ let latitude = null
 let savedLatitude = null
 let longitude = null
 let savedLongitude = null
+let accuracy = 0
 let distance = null
 
 const gpsNames = ["latitude", "longitude", "altitude", "heading", "speed", "accuracy"]
@@ -89,7 +90,7 @@ startstop.onclick = () => {
                 return
             }
             const now = new Date().getTime()
-            if ((now - lastBeepTime) >= (distance * distanceMultiplier) && audioToggle.checked) {
+            if ((now - lastBeepTime) >= (Math.max(distance, 0) * distanceMultiplier) && audioToggle.checked) {
                 lastBeepTime = now
                 beep.play()
             }
@@ -100,12 +101,17 @@ startstop.onclick = () => {
                 obj => {
                     latitude = obj.coords.latitude
                     longitude = obj.coords.longitude
+                    accuracy = obj.coords.accuracy
                     for (let name of gpsNames) {
                         let text = obj.coords[name]
                         if (["altitude", "speed", "accuracy"].includes(name)) {
                             text = distanceToText(text)
                         } else if (name == "heading") {
-                            text = text.toFixed(2)
+                            if (text === null) {
+                                text = "Unknown"
+                            } else {
+                                text = text.toFixed(2)
+                            }
                         }
                         if (text === null) {
                             text = "Unknown"
@@ -118,7 +124,7 @@ startstop.onclick = () => {
                         distance = distanceBetween(
                             latitude, longitude,
                             savedLatitude, savedLongitude
-                        )
+                        ) - accuracy
                     } else {
                         distance = null
                     }
@@ -223,16 +229,22 @@ function updateDistanceDirections(d) {
             savedLatitude, savedLongitude
         )
     }
-    d = distanceToText(d)
-    let degrees = Math.floor(bearing(
-        latitude, longitude,
-        savedLatitude, savedLongitude
-    ))
-    distanceDirections.innerText = `${d} at ${degrees}°.`
+    if (d > 0) {
+        d = distanceToText(d)
+        let degrees = Math.floor(bearing(
+            latitude, longitude,
+            savedLatitude, savedLongitude
+        ))
+        distanceDirections.innerText = `${d} at ${degrees}°.`
+    } else {
+        distanceDirections.innerText = `Within ${distanceToText(accuracy)}.`
+    }
 }
 
 function distanceToText(m) {
-    if (typeof(m) == "number") {
+    if (m === null) {
+        return "Unknown"
+    } else if (typeof(m) == "number") {
         m = m.toFixed(2)
     }
     if (m > 1000) {
